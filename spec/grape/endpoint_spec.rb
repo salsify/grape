@@ -419,7 +419,7 @@ describe Grape::Endpoint do
       expect(last_response.status).to eq(201)
     end
 
-    it 'does not include missing attributes when there are nested hashes' do
+    it 'includes missing attributes with defaults when there are nested hashes' do
       subject.get '/dummy' do
       end
 
@@ -449,6 +449,34 @@ describe Grape::Endpoint do
       expect(json['nested']['fourth']).to eq ''
       expect(json['nested']['nested_nested'].keys).to eq %w(sixth seven)
       expect(json['nested']['nested_nested']['sixth']).to eq 'sixth'
+    end
+
+    # This spec is written in the style prior to 7a56fe9ae5875fb2735223b532037cdd7bf38440
+    it 'does not include missing attributes when there are nested hashes' do
+      subject.get '/dummy' do
+      end
+
+      subject.params do
+        requires :first
+        optional :second
+        optional :third
+        optional :nested, type: Hash do
+          optional :fourth
+          optional :fifth
+        end
+      end
+
+      inner_params = nil
+      subject.get '/declared' do
+       inner_params = declared(params, include_missing: false)
+        ''
+      end
+
+      get '/declared?first=present&nested[fourth]=4'
+      expect(last_response.status).to eq(200)
+      expect(inner_params[:first]).to eq 'present'
+      expect(inner_params[:nested].keys).to eq %w(fourth)
+      expect(inner_params[:nested][:fourth]).to eq '4'
     end
   end
 
