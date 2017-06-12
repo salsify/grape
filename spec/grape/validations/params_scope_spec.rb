@@ -488,7 +488,7 @@ describe Grape::Validations::ParamsScope do
 
     it 'applies the constraint within each value' do
       post '/test',
-           { foos: [{ foo_type: 'a' }, { bar: 'not_needed', baz_type: 'c' }] }.to_json,
+           { foos: [{ foo_type: 'a' }, { baz_type: 'c' }] }.to_json,
            'CONTENT_TYPE' => 'application/json'
 
       expect(last_response.status).to eq(400)
