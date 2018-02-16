@@ -6,10 +6,11 @@
 
 #### Fixes
 
-* [#1740](https://github.com/ruby-grape/grape/pull/1740): Fix dependent parameter validation using `given` when parameter is a `Hash` - [@jvortmann](https://github.com/jvortmann).
-
 * Your contribution here.
+
+* [#1691](https://github.com/ruby-grape/grape/pull/1691): Fix validations nested under `given` - [@rnubel](https://github.com/rnubel).
 * [#1737](https://github.com/ruby-grape/grape/pull/1737): Fix translating error when passing symbols as params in custom validations - [@mlzhuyi](https://github.com/mlzhuyi).
+* [#1740](https://github.com/ruby-grape/grape/pull/1740): Fix dependent parameter validation using `given` when parameter is a `Hash` - [@jvortmann](https://github.com/jvortmann).
 
 ### 1.0.2 (1/10/2018)
 
